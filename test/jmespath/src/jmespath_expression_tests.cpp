@@ -76,29 +76,46 @@ TEST_CASE("jmespath_expression tests")
     }    
 }
 
-TEST_CASE("jmespath issue") 
+TEST_CASE("jmespath issues") 
 {
-    std::string jtext = R"(
+    SECTION("issue 1")
     {
-      "locations": [
-        {"name": "Seattle", "state": "WA"},
-        {"name": "New York", "state": "NY"},
-        {"name": "Bellevue", "state": "WA"},
-        {"name": "Olympia", "state": "WA"}
-      ]
-    }        
-    )";
+        std::string jtext = R"(
+        {
+          "locations": [
+            {"name": "Seattle", "state": "WA"},
+            {"name": "New York", "state": "NY"},
+            {"name": "Bellevue", "state": "WA"},
+            {"name": "Olympia", "state": "WA"}
+          ]
+        }        
+        )";
 
-    std::string expr = R"(
-    {
-        name: locations[].name,
-        state: locations[].state
+        std::string expr = R"(
+        {
+            name: locations[].name,
+            state: locations[].state
+        }
+        )";
+
+        auto doc = ojson::parse(jtext);
+
+        auto result = jmespath::search(doc, expr);
+
+        std::cout << pretty_print(result) << "\n\n";
     }
-    )";
+    SECTION("numeric key")
+    {
+        std::string expected_string = R"(["one","two","three"])";
 
-    auto doc = ojson::parse(jtext);
+        json expected_result = json::parse(expected_string);        
 
-    auto result = jmespath::search(doc, expr);
+        std::string json_string = R"({"foo": {"1": ["one", "two", "three"], "-1": "bar"}})";
+        json doc = json::parse(json_string);
 
-    std::cout << pretty_print(result) << "\n\n";
+        json result = jmespath::search(doc, R"(foo."1")");
+
+        CHECK(expected_result == result);
+    }
 }
+
