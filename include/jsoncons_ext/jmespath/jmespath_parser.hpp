@@ -7,19 +7,19 @@
 #ifndef JSONCONS_JMESPATH_JMESPATH_PARSER_HPP
 #define JSONCONS_JMESPATH_JMESPATH_PARSER_HPP
 
-#include <string>
-#include <vector>
-#include <unordered_map> // std::unordered_map
-#include <memory>
-#include <type_traits> // std::is_const
-#include <limits> // std::numeric_limits
-#include <utility> // std::move
-#include <functional> // 
 #include <algorithm> // std::stable_sort, std::reverse
 #include <cmath> // std::abs
+#include <functional> // 
 #include <jsoncons/json.hpp>
 #include <jsoncons_ext/jmespath/jmespath_error.hpp>
 #include <jsoncons_ext/jmespath/jmespath_evaluator.hpp>
+#include <limits> // std::numeric_limits
+#include <memory>
+#include <string>
+#include <type_traits> // std::is_const
+#include <unordered_map> // std::unordered_map
+#include <utility> // std::move
+#include <vector>
 
 namespace jsoncons { 
 namespace jmespath {
