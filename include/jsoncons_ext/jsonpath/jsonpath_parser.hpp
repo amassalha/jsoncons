@@ -2480,8 +2480,7 @@ namespace detail {
         }
     };
 
-    } // namespace detail
-
+} // namespace detail
 } // namespace jsonpath
 } // namespace jsoncons
 
